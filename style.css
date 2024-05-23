@@ -116,7 +116,7 @@ input{
 
 .pokemon-name{
     flex: 1;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .pokemon-id{
