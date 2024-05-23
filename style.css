@@ -95,6 +95,13 @@ input{
     overflow: hidden;
     flex-direction: column;
     box-shadow: 0px 0px 11px 1px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover{
+    transform: scale(1.05);
+
 }
 
 .card-text-position{
@@ -116,7 +123,7 @@ input{
 
 .pokemon-name{
     flex: 1;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .pokemon-id{
@@ -151,6 +158,11 @@ input{
     position: absolute;
     right: 0px;
     bottom: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pokemon-img:hover{
+    transform: scale(1.1);
 }
 
 .pokemon-type-position{
