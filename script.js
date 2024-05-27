@@ -16,6 +16,8 @@ const typeColors = {
 };
 
 let allPokemons = [];
+let offset = 20;
+let limit = 20;
 
 async function loadAllPokemons() {
     let container = document.getElementById('allPokemons');
@@ -38,7 +40,7 @@ function renderAllPokemons() {
         const typ = pokemon.types[0].type.name;
         let colar = typeColors[typ] || 'darkblue';
         container.innerHTML += `  
-            <div class="card bg-color-${colar}">
+            <div id="pokemon${i}" class="card bg-color-${colar}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -67,3 +69,46 @@ function renderPokemonType(i, pokemon) {
 
     }
 }
+
+
+async function loadMore() {
+let max = limit + offset;
+    for (let i = offset; i < max; i++) {
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        let responseAsJOIN = await response.json();
+        allPokemons.push(responseAsJOIN);
+        console.log('neue Pokemon', allPokemons);
+    }
+    renderNewPokemon();
+    offset = offset + limit;
+}
+
+
+function renderNewPokemon(){
+    let container = document.getElementById('allPokemons');
+    for (let i = offset; i < allPokemons.length; i++) {
+        const pokemon = allPokemons[i];
+        const typ = pokemon.types[0].type.name;
+        let colar = typeColors[typ] || 'darkblue';
+        container.innerHTML += `  
+            <div id="pokemon${i}" class="card bg-color-${colar}">
+                <div class="class-position-name">
+                    <div class="pokemon-name">${pokemon.name}</div>
+                    <div class="pokemon-id">#${pokemon.id}</div>
+                </div>
+                <div class="position-card-contant">
+                    <div class="position-type">
+                        <div id="PokemonType${i}" class="pokemon-type-position"></div>   
+                    </div>
+                    <div class="imges">
+                        <img class="pokemon-img" src="${pokemon.sprites.other['official-artwork'].front_default}">
+                        <img class="pokeball-img" src="assets/img/pokeball.png">
+                    </div>
+                </div>        
+        </div>`;
+        renderPokemonType(i, pokemon);
+    }
+
+}
+
