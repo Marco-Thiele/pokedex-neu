@@ -72,7 +72,9 @@ function renderPokemonType(i, pokemon) {
 
 
 async function loadMore() {
-let max = limit + offset;
+    let btn = document.getElementById('btnLoadMore');
+    let max = limit + offset;
+    btn.disabled = true
     for (let i = offset; i < max; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -80,12 +82,12 @@ let max = limit + offset;
         allPokemons.push(responseAsJOIN);
         console.log('neue Pokemon', allPokemons);
     }
-    renderNewPokemon();
+    renderNewPokemon(btn);
     offset = offset + limit;
 }
 
 
-function renderNewPokemon(){
+function renderNewPokemon(btn) {
     let container = document.getElementById('allPokemons');
     for (let i = offset; i < allPokemons.length; i++) {
         const pokemon = allPokemons[i];
@@ -109,6 +111,21 @@ function renderNewPokemon(){
         </div>`;
         renderPokemonType(i, pokemon);
     }
-
+    btn.disabled = false;
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('btnLoadMore');
+    function checkButtonState() {
+        if (button.disabled) {
+            button.style.backgroundColor = '#787b80'
+        } else {
+            button.style.backgroundColor = '#333B4A'
+        }
+    }
+    checkButtonState();
+    const observer = new MutationObserver(checkButtonState);
+    observer.observe(button, { attributes: true, attributeFilter: ['disabled'] });
+});
 
