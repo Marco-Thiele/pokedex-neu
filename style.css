@@ -184,3 +184,20 @@ input{
 .pokemon-type::first-letter{
     text-transform: capitalize;
 }
+
+.btn-position{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-load-more{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: #333B4A;
+    color: white;
+}
