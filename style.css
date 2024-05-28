@@ -220,6 +220,7 @@ input{
     background: white;
     z-index: 10;
     border-radius: 40px;
+    background-color: aqua;
 }
 
 .overlay-menu{
@@ -237,9 +238,21 @@ input{
 }
 
 .overlay-position-name{
-
+    color: white;
 }
 
 .overlay-position-id{
+    color: white;
+}
 
+.overlay-position-ballimg{
+    display: flex;
+    justify-content: flex-end;  
+}
+
+.overlay-info{
+    height: calc(100% - 416px);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    background-color: white;
 }
