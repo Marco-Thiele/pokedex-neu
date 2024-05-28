@@ -40,7 +40,7 @@ function renderAllPokemons() {
         const typ = pokemon.types[0].type.name;
         let color = typeColors[typ] || 'darkblue';
         container.innerHTML += `  
-            <div onclick="showOverlay()" id="pokemon${i}" class="card bg-color-${color}">
+            <div onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}')" id="pokemon${i}" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -130,15 +130,47 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function showOverlay(i, colar, typ, pokemon){
+function showOverlay(i, color, typ, pokemonName, pokemonId) {
     positionOverlay = document.getElementById('positionOverlay');
-    overlay = document.getElementById('overlay');
     positionOverlay.classList.add('overlay-active');
+    positionOverlay.innerHTML =
+        `<div id="overlay" class="overlay bg-color-${color}">
+    <div>
+        <div>
+            <div class="overlay-menu">
+                <img onclick="closeOverlay()" src="assets/img/arrow-left.ico" alt="">
+            </div>
+        </div>
+        <div class="overlay-position-header">
+            <div class="overlay-position-name">
+                ${pokemonName}
+            </div>
+            <div class="overlay-position-id">
+            ${pokemonId}
+            </div>
+        </div>
+        <div>
+            <div>
+                typs
+            </div>
+        </div>
+        <div>
+            <div class="overlay-position-ballimg">
+                <img src="assets/img/pokeball.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="overlay-info">
+
+    </div>
+
+</div>`
+    overlay = document.getElementById('overlay');
     overlay.style.display = 'block'
 }
 
 
-function closeOverlay(){
+function closeOverlay() {
     positionOverlay = document.getElementById('positionOverlay');
     overlay = document.getElementById('overlay');
     positionOverlay.classList.remove('overlay-active');
