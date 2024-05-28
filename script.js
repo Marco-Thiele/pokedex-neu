@@ -38,9 +38,9 @@ function renderAllPokemons() {
     for (let i = 0; i < allPokemons.length; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
-        let colar = typeColors[typ] || 'darkblue';
+        let color = typeColors[typ] || 'darkblue';
         container.innerHTML += `  
-            <div id="pokemon${i}" class="card bg-color-${colar}">
+            <div onclick="showOverlay()" id="pokemon${i}" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -128,4 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new MutationObserver(checkButtonState);
     observer.observe(button, { attributes: true, attributeFilter: ['disabled'] });
 });
+
+
+function showOverlay(i, colar, typ, pokemon){
+    positionOverlay = document.getElementById('positionOverlay');
+    overlay = document.getElementById('overlay');
+    positionOverlay.classList.add('overlay-active');
+    overlay.style.display = 'block'
+}
+
+
+function closeOverlay(){
+    positionOverlay = document.getElementById('positionOverlay');
+    overlay = document.getElementById('overlay');
+    positionOverlay.classList.remove('overlay-active');
+    overlay.style.display = 'none';
+}
+
 

@@ -23,12 +23,12 @@
     <div class="btn-position">
         <button id="btnLoadMore" onclick="loadMore()" class="btn-load-more">Load more</button>
     </div>
-    <div class="position-overlay">
-        <div class="overlay">
+    <div id="positionOverlay" class="position-overlay">
+        <div id="overlay" class="overlay">
             <div>
                 <div>
                     <div class="overlay-menu">
-                        <img src="assets/img/arrow-left.ico" alt="">
+                        <img onclick="closeOverlay()" src="assets/img/arrow-left.ico" alt="">
                     </div>
                 </div>
                 <div class="overlay-position-header">
