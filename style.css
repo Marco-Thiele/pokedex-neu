@@ -201,3 +201,45 @@ input{
     background-color: #333B4A;
     color: white;
 }
+
+.position-overlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.overlay{
+    border: 1px solid black;
+    width: 600px;
+    height: 800px;
+    background: white;
+    z-index: 10;
+    border-radius: 40px;
+}
+
+.overlay-menu{
+    margin-top: 50px;
+    margin-left: 40px;
+}
+
+.overlay-position-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 50px;
+}
+
+.overlay-position-name{
+
+}
+
+.overlay-position-id{
+
+}
