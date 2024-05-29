@@ -105,7 +105,7 @@ input{
 
 .card:hover{
     transform: scale(1.05);
-
+    filter: brightness(110%);
 }
 
 .card-text-position{
@@ -239,7 +239,9 @@ input{
 
 .overlay-menu{
     margin-top: 50px;
-    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .overlay-position-header{
@@ -295,8 +297,35 @@ input{
     margin-left: 40px;
 }
 
+.overlay-arrows{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    z-index: 1;
+    position: sticky;
+}
+
 .overlay-info{
     height: 500px;
     border-radius: 40px;
     background-color: white;
+}
+
+.position-btn{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 80px;
+}
+
+button{
+    border: unset;
+    background: white;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.btn-active{
+    border-bottom: 1px solid blue;
 }

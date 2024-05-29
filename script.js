@@ -41,7 +41,7 @@ function renderAllPokemons() {
         let color = typeColors[typ] || 'darkblue';
         let pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}','${pokeimg}')" id="pokemon${i}" class="card bg-color-${color}">
+            <div onclick="showOverlay(${i}, '${color}','${pokemon.name}','${pokemon.id}','${pokeimg}')" id="pokemon${i}" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -55,7 +55,7 @@ function renderAllPokemons() {
                         <img class="pokeball-img" src="assets/img/pokeball.png">
                     </div>
                 </div>        
-        </div>`;
+            </div>`;
         renderPokemonType(i, 'PokemonType'+i);
     }
 
@@ -96,7 +96,7 @@ function renderNewPokemon(btn) {
         let color = typeColors[typ] || 'darkblue';
         pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div id="pokemon${i}" onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}','${pokeimg}')" class="card bg-color-${color}">
+            <div id="pokemon${i}" onclick="showOverlay(${i}, '${color}','${pokemon.name}','${pokemon.id}','${pokeimg}')" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
+function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
     positionOverlay = document.getElementById('positionOverlay');
     positionOverlay.classList.add('overlay-active');
     positionOverlay.innerHTML =
@@ -140,7 +140,7 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
     <div class="position-relative">
         <div>
             <div class="overlay-menu">
-                <img onclick="closeOverlay()" class="cursor-pointer" src="assets/img/arrow-left.ico" alt="">
+                <img onclick="closeOverlay()" class="cursor-pointer" src="assets/img/x.ico" alt="">
             </div>
         </div>
         <div class="overlay-position-header">
@@ -154,6 +154,14 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
         <div id="overlayType" class="overlay-type-position">
             
         </div>
+        <div class="overlay-arrows">
+            <div>
+                <img class="cursor-pointer" onclick="previousPokemon(${i})" src="assets/img/arrow-left.ico" alt="">
+            </div>
+            <div>
+                <img class="cursor-pointer" onclick="nextPokemon(${i})" src="assets/img/arrow-right.ico" alt="">
+            </div>
+        </div>
         <div>
             <div class="overlay-pokemon-img">
                 <img src="${pokeimg}">
@@ -164,7 +172,13 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
         </div>
     </div>
     <div class="overlay-info">
-
+        <div>
+            <div class="position-btn">
+                <button>About</button>
+                <button>Base Stats</button>
+                <button>Moves</button>
+            </div>
+        </div>
     </div>
 
 </div>`;
@@ -172,6 +186,34 @@ renderPokemonType(i, 'overlayType');
     overlay = document.getElementById('overlay');
     overlay.style.display = 'block'
     
+}
+
+
+function nextPokemon(i){
+    i++
+    newPokemon(i)
+}
+
+
+function previousPokemon(i){
+    if (i>= 1) {
+        i--
+        newPokemon(i)
+    } else {
+        i=i
+        newPokemon(i)
+    }
+}
+
+
+function newPokemon(j){
+    let pokemon = allPokemons[j];
+    let typ = pokemon.types[0].type.name;
+    let color = typeColors[typ] || 'darkblue';
+    let pokeimg = pokemon.sprites.other['official-artwork'].front_default;
+    let pokemonName = pokemon.name
+    let pokemonId = pokemon.id
+    showOverlay(j, color, pokemonName, pokemonId, pokeimg)
 }
 
 
