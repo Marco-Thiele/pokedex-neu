@@ -62,6 +62,10 @@ body{
     background-color: rgb(115, 131, 185);
 }
 
+.cursor-pointer{
+    cursor: pointer;
+}
+
 .middle{
     display: flex;
     justify-content: center;
@@ -227,6 +231,10 @@ input{
     display: none;
 }
 
+.position-relative{
+    position: relative;
+}
+
 .overlay-menu{
     margin-top: 50px;
     margin-left: 40px;
@@ -238,11 +246,16 @@ input{
     align-items: center;
     margin-left: 40px;
     margin-right: 40px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .overlay-position-name{
     color: white;
+    font-size: 40px;
+}
+
+.overlay-position-name::first-letter{
+    text-transform: capitalize;
 }
 
 .overlay-position-id{
@@ -250,8 +263,28 @@ input{
 }
 
 .overlay-position-ballimg{
+    position: absolute;
+    right: 0px;
+    bottom: 0;
+    opacity: 0.5;
+    overflow: hidden;
+}
+
+.overlay-position-ballimg img{
+    height: 350px;
+    margin-bottom: -75px;
+    margin-right: -75px;
+}
+
+.overlay-pokemon-img{
     display: flex;
-    justify-content: flex-end;  
+    justify-content: center;
+}
+
+.overlay-pokemon-img img{
+    height: 350px;
+    margin-bottom: -90px;
+    z-index: 1;
 }
 
 .overlay-info{

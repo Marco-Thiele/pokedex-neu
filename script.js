@@ -39,8 +39,9 @@ function renderAllPokemons() {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
         let color = typeColors[typ] || 'darkblue';
+        let pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}')" id="pokemon${i}" class="card bg-color-${color}">
+            <div onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}','${pokeimg}')" id="pokemon${i}" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -50,7 +51,7 @@ function renderAllPokemons() {
                         <div id="PokemonType${i}" class="pokemon-type-position"></div>   
                     </div>
                     <div class="imges">
-                        <img class="pokemon-img" src="${pokemon.sprites.other['official-artwork'].front_default}">
+                        <img class="pokemon-img" src="${pokeimg}">
                         <img class="pokeball-img" src="assets/img/pokeball.png">
                     </div>
                 </div>        
@@ -130,15 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function showOverlay(i, color, typ, pokemonName, pokemonId) {
+function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
     positionOverlay = document.getElementById('positionOverlay');
     positionOverlay.classList.add('overlay-active');
     positionOverlay.innerHTML =
-        `<div id="overlay" class="overlay bg-color-${color}">
-    <div>
+    `<div id="overlay" class="overlay bg-color-${color}">
+    <div class="position-relative">
         <div>
             <div class="overlay-menu">
-                <img onclick="closeOverlay()" src="assets/img/arrow-left.ico" alt="">
+                <img onclick="closeOverlay()" class="cursor-pointer" src="assets/img/arrow-left.ico" alt="">
             </div>
         </div>
         <div class="overlay-position-header">
@@ -146,15 +147,18 @@ function showOverlay(i, color, typ, pokemonName, pokemonId) {
                 ${pokemonName}
             </div>
             <div class="overlay-position-id">
-            ${pokemonId}
+            #${pokemonId}
             </div>
         </div>
         <div>
             <div>
-                typs
+                ${typ}
             </div>
         </div>
         <div>
+            <div class="overlay-pokemon-img">
+                <img src="${pokeimg}">
+            </div>
             <div class="overlay-position-ballimg">
                 <img src="assets/img/pokeball.png" alt="">
             </div>
