@@ -35,7 +35,7 @@ async function loadAllPokemons() {
 
 function renderAllPokemons() {
     let container = document.getElementById('allPokemons');
-    for (let i = 0; i < allPokemons.length; i++) {
+    for (let i = 0; i < allPokemons.length-1; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
         let color = typeColors[typ] || 'darkblue';
@@ -56,16 +56,16 @@ function renderAllPokemons() {
                     </div>
                 </div>        
         </div>`;
-        renderPokemonType(i, pokemon);
+        renderPokemonType(i, 'PokemonType'+i);
     }
 
 }
 
 
-function renderPokemonType(i, pokemon) {
-    let PokemonType = document.getElementById(`PokemonType${i}`)
-    for (let j = 0; j < pokemon.types.length; j++) {
-        const typ = pokemon.types[j];
+function renderPokemonType(i, ID) {
+    let PokemonType = document.getElementById(ID)
+    for (let j = 0; j < allPokemons[i].types.length; j++) {
+        const typ = allPokemons[i].types[j];
         PokemonType.innerHTML += `<div class="pokemon-type">${typ.type.name}</div>`;
 
     }
@@ -93,9 +93,10 @@ function renderNewPokemon(btn) {
     for (let i = offset; i < allPokemons.length; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
-        let colar = typeColors[typ] || 'darkblue';
+        let color = typeColors[typ] || 'darkblue';
+        pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div id="pokemon${i}" class="card bg-color-${colar}">
+            <div id="pokemon${i}" onclick="showOverlay(${i}, '${color}', '${typ}','${pokemon.name}','${pokemon.id}','${pokeimg}')" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -105,12 +106,12 @@ function renderNewPokemon(btn) {
                         <div id="PokemonType${i}" class="pokemon-type-position"></div>   
                     </div>
                     <div class="imges">
-                        <img class="pokemon-img" src="${pokemon.sprites.other['official-artwork'].front_default}">
+                        <img class="pokemon-img" src="${pokeimg}">
                         <img class="pokeball-img" src="assets/img/pokeball.png">
                     </div>
                 </div>        
         </div>`;
-        renderPokemonType(i, pokemon);
+        renderPokemonType(i, 'PokemonType'+i);
     }
     btn.disabled = false;
 }
@@ -135,7 +136,7 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
     positionOverlay = document.getElementById('positionOverlay');
     positionOverlay.classList.add('overlay-active');
     positionOverlay.innerHTML =
-    `<div id="overlay" class="overlay bg-color-${color}">
+    `<div id="overlay" onclick="doNotClose(event)" class="overlay bg-color-${color}">
     <div class="position-relative">
         <div>
             <div class="overlay-menu">
@@ -150,10 +151,8 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
             #${pokemonId}
             </div>
         </div>
-        <div>
-            <div>
-                ${typ}
-            </div>
+        <div id="overlayType" class="overlay-type-position">
+            
         </div>
         <div>
             <div class="overlay-pokemon-img">
@@ -168,9 +167,11 @@ function showOverlay(i, color, typ, pokemonName, pokemonId, pokeimg) {
 
     </div>
 
-</div>`
+</div>`;
+renderPokemonType(i, 'overlayType');
     overlay = document.getElementById('overlay');
     overlay.style.display = 'block'
+    
 }
 
 
@@ -181,4 +182,8 @@ function closeOverlay() {
     overlay.style.display = 'none';
 }
 
+
+function doNotClose(event){
+    event.stopPropagation();
+}
 
