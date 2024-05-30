@@ -174,9 +174,9 @@ function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
     <div class="overlay-info">
         <div>
             <div class="position-btn">
-                <button>About</button>
-                <button>Base Stats</button>
-                <button>Moves</button>
+                <button id="about" onclick="about('about', 'baseStats', 'moves')">About</button>
+                <button id="baseStats" onclick="about( 'baseStats', 'about', 'moves')">Base Stats</button>
+                <button id="moves" onclick="about('moves','about', 'baseStats')">Moves</button>
             </div>
         </div>
     </div>
@@ -227,5 +227,21 @@ function closeOverlay() {
 
 function doNotClose(event){
     event.stopPropagation();
+}
+
+function about(active, nonActive, nonActiveToo){
+    document.getElementById(active).classList.add('btn-active')
+    document.getElementById(nonActive).classList.remove('btn-active')
+    document.getElementById(nonActiveToo).classList.remove('btn-active')
+}
+
+
+function baseStats(){
+
+}
+
+
+function moves(){
+
 }
 
