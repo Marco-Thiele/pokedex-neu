@@ -277,17 +277,20 @@ function renderAboutInfo(i) {
     let height = pokemon.height / 10;
     let weight = pokemon.weight / 100
     info.innerHTML =
-        `<div>
+    `<div class="about-info">
         <div>
+            <div class="headline"> Height: </div>
             <div>${height}m</div>
         </div>
 
         <div>
+            <div class="headline"> Weight: </div>
             <div>${weight}kg</div>
         </div>
 
         <div>
-            <div id="abilities"></div>
+            <div class="headline"> Abilities: </div>
+            <div id="abilities"> </div>
         </div>
     </div>`
     renderAbilities(pokemon);
@@ -310,9 +313,7 @@ function renderAbilities(pokemon) {
     pokemon.abilities.forEach(abiliti => {
         console.log(abiliti.ability.name)
         abilitis.innerHTML += `
-        <div>
-            <div>${abiliti.ability.name}</div>
-        </div>
+            <div>${abiliti.ability.name}</div> 
     `
     });
 }

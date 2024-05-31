@@ -329,3 +329,16 @@ button{
 .btn-active{
     border-bottom: 1px solid blue;
 }
+
+.about-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: calc(100% - 98px);
+    text-align: center;
+}
+
+.headline{
+    font-size: 24px;
+}
