@@ -287,9 +287,10 @@ function renderAboutInfo(i) {
         </div>
 
         <div>
-            <div></div>
+            <div id="abilities"></div>
         </div>
     </div>`
+    renderAbilities(pokemon);
 }
 
 
@@ -301,4 +302,17 @@ function renderBaseStatsInfo(i) {
 
 function renderMovesInfo(i) {
 
+}
+
+
+function renderAbilities(pokemon) {
+    let abilitis = document.getElementById('abilities');
+    pokemon.abilities.forEach(abiliti => {
+        console.log(abiliti.ability.name)
+        abilitis.innerHTML += `
+        <div>
+            <div>${abiliti.ability.name}</div>
+        </div>
+    `
+    });
 }
