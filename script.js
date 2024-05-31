@@ -18,6 +18,7 @@ const typeColors = {
 let allPokemons = [];
 let offset = 20;
 let limit = 20;
+let saveBtn = 1;
 
 async function loadAllPokemons() {
     let container = document.getElementById('allPokemons');
@@ -35,13 +36,13 @@ async function loadAllPokemons() {
 
 function renderAllPokemons() {
     let container = document.getElementById('allPokemons');
-    for (let i = 0; i < allPokemons.length-1; i++) {
+    for (let i = 0; i < allPokemons.length - 1; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
         let color = typeColors[typ] || 'darkblue';
         let pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div onclick="showOverlay(${i}, '${color}','${pokemon.name}','${pokemon.id}','${pokeimg}')" id="pokemon${i}" class="card bg-color-${color}">
+            <div onclick="showOverlay(${i})" id="pokemon${i}" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -56,7 +57,7 @@ function renderAllPokemons() {
                     </div>
                 </div>        
             </div>`;
-        renderPokemonType(i, 'PokemonType'+i);
+        renderPokemonType(i, 'PokemonType' + i);
     }
 
 }
@@ -96,7 +97,7 @@ function renderNewPokemon(btn) {
         let color = typeColors[typ] || 'darkblue';
         pokeimg = pokemon.sprites.other['official-artwork'].front_default;
         container.innerHTML += `  
-            <div id="pokemon${i}" onclick="showOverlay(${i}, '${color}','${pokemon.name}','${pokemon.id}','${pokeimg}')" class="card bg-color-${color}">
+            <div id="pokemon${i}" onclick="showOverlay(${i})" class="card bg-color-${color}">
                 <div class="class-position-name">
                     <div class="pokemon-name">${pokemon.name}</div>
                     <div class="pokemon-id">#${pokemon.id}</div>
@@ -111,7 +112,7 @@ function renderNewPokemon(btn) {
                     </div>
                 </div>        
         </div>`;
-        renderPokemonType(i, 'PokemonType'+i);
+        renderPokemonType(i, 'PokemonType' + i);
     }
     btn.disabled = false;
 }
@@ -132,11 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
+function showOverlay(i) {
     positionOverlay = document.getElementById('positionOverlay');
     positionOverlay.classList.add('overlay-active');
+    const pokemon = allPokemons[i];
+    const typ = pokemon.types[0].type.name;
+    let color = typeColors[typ] || 'darkblue';
+    let pokeimg = pokemon.sprites.other['official-artwork'].front_default;
     positionOverlay.innerHTML =
-    `<div id="overlay" onclick="doNotClose(event)" class="overlay bg-color-${color}">
+        `<div id="overlay" onclick="doNotClose(event)" class="overlay bg-color-${color}">
     <div class="position-relative">
         <div>
             <div class="overlay-menu">
@@ -145,10 +150,10 @@ function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
         </div>
         <div class="overlay-position-header">
             <div class="overlay-position-name">
-                ${pokemonName}
+                ${pokemon.name}
             </div>
             <div class="overlay-position-id">
-            #${pokemonId}
+            #${pokemon.id}
             </div>
         </div>
         <div id="overlayType" class="overlay-type-position">
@@ -174,9 +179,9 @@ function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
     <div class="overlay-info">
         <div>
             <div class="position-btn">
-                <button id="about" onclick="about('about', 'baseStats', 'moves')">About</button>
-                <button id="baseStats" onclick="about( 'baseStats', 'about', 'moves')">Base Stats</button>
-                <button id="moves" onclick="about('moves','about', 'baseStats')">Moves</button>
+                <button id="about" onclick="about(${i}, 1)">About</button>
+                <button id="baseStats" onclick="about(${i}, 2)">Base Stats</button>
+                <button id="moves" onclick="about(${i}, 3)">Moves</button>
             </div>
         </div>
         <div id="renderInformations"> 
@@ -184,31 +189,31 @@ function showOverlay(i, color, pokemonName, pokemonId, pokeimg) {
     </div >
 
 </div>`;
-renderPokemonType(i, 'overlayType');
+    renderPokemonType(i, 'overlayType');
     overlay = document.getElementById('overlay');
     overlay.style.display = 'block'
     checkBtnActive(i);
 }
 
 
-function nextPokemon(i){
+function nextPokemon(i) {
     i++
     newPokemon(i)
 }
 
 
-function previousPokemon(i){
-    if (i>= 1) {
+function previousPokemon(i) {
+    if (i >= 1) {
         i--
         newPokemon(i)
     } else {
-        i=i
+        i = i
         newPokemon(i)
     }
 }
 
 
-function newPokemon(j){
+function newPokemon(j) {
     let pokemon = allPokemons[j];
     let typ = pokemon.types[0].type.name;
     let color = typeColors[typ] || 'darkblue';
@@ -227,41 +232,73 @@ function closeOverlay() {
 }
 
 
-function doNotClose(event){
+function doNotClose(event) {
     event.stopPropagation();
 }
 
-function about(active, nonActive, nonActiveToo){
-    document.getElementById(active).classList.add('btn-active')
-    document.getElementById(nonActive).classList.remove('btn-active')
-    document.getElementById(nonActiveToo).classList.remove('btn-active')
+function about(i, saveBtnNumber) {
+    if (saveBtn != saveBtnNumber) {
+        saveBtn = saveBtnNumber;
+        showOverlay(i);
+    }
 }
 
 
-function checkBtnActive(i){
+function checkBtnActive(i) {
     const about = document.getElementById('about');
     const baseStats = document.getElementById('baseStats');
     const moves = document.getElementById('moves');
-    setInterval(() => {
-        if (about.classList.contains('btn-active')) {
-            renderAboutInfo(i)
-        }
-    
-        if (baseStats.classList.contains('btn-active')) {
-            renderBaseStatsInfo()
-        } 
-    
-        if (moves.classList.contains('btn-active')) {
-            rendermovesInfo()
-        }
-    }, 200);  
+    about.classList.remove('btn-active');
+    baseStats.classList.remove('btn-active');
+    moves.classList.remove('btn-active');
+    if (saveBtn == 1) {
+        about.classList.add('btn-active');
+        renderAboutInfo(i);
+    }
+
+    if (saveBtn == 2) {
+        baseStats.classList.add('btn-active');
+        renderBaseStatsInfo(i);
+    }
+
+    if (saveBtn == 3) {
+        moves.classList.add('btn-active');
+        renderMovesInfo(i);
+    }
+
 }
 
 
 
-function renderAboutInfo(i){
-   let info = document.getElementById('renderInformations');
-   let pokemon = allPokemons[i];
-   console.log('info', pokemon)
+function renderAboutInfo(i) {
+    let info = document.getElementById('renderInformations');
+    let pokemon = allPokemons[i];
+    console.log('info', pokemon);
+    let height = pokemon.height / 10;
+    let weight = pokemon.weight / 100
+    info.innerHTML =
+        `<div>
+        <div>
+            <div>${height}m</div>
+        </div>
+
+        <div>
+            <div>${weight}kg</div>
+        </div>
+
+        <div>
+            <div></div>
+        </div>
+    </div>`
+}
+
+
+function renderBaseStatsInfo(i) {
+
+}
+
+
+
+function renderMovesInfo(i) {
 
 }
