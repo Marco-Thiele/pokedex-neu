@@ -317,6 +317,7 @@ input{
     display: flex;
     justify-content: space-around;
     padding-top: 80px;
+    padding-bottom: 15px;
 }
 
 button{
@@ -361,7 +362,7 @@ button{
 
 
 .position-info-base{
-    height: calc(100% - 104px);
+    height: calc(100% - 119px);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -391,7 +392,7 @@ button{
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    height: calc(100% - 120px);
+    height: calc(100% - 135px);
     overflow-y: scroll;
     scrollbar-width: none;
     text-transform: capitalize;
