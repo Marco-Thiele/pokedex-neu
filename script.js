@@ -313,9 +313,6 @@ function renderBaseStatsInfo(i) {
             <div id="progress-Bar${j}" class="progress-Bar">
             </div>
         </div>`
-/*         if (stat.base_stat > 100) {
-            stat.base_stat = 100
-        } */
         let newWidth = stat.base_stat / 180*100;
         document.getElementById(`progress-Bar${j}`).style.width = newWidth + '%';    
     }
@@ -325,6 +322,15 @@ function renderBaseStatsInfo(i) {
 
 
 function renderMovesInfo(i) {
+    let info = document.getElementById('renderInformations');
+    let pokemon = allPokemons[i];
+    info.innerHTML = '<div class="moves-info" id="movesInfo"></div>'
+
+    pokemon.moves.forEach(move => {
+        document.getElementById('movesInfo').innerHTML += `
+        <div>${move.move.name},</div>
+        `
+    });
 
 }
 

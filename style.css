@@ -324,6 +324,7 @@ button{
     background: white;
     cursor: pointer;
     z-index: 1;
+    font-size: 18px;
 }
 
 .btn-active{
@@ -360,7 +361,7 @@ button{
 
 
 .position-info-base{
-    height: calc(100% - 98px);
+    height: calc(100% - 104px);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -384,3 +385,18 @@ button{
 .center{
     text-align: center;
 }
+
+.moves-info{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    height: calc(100% - 120px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    text-transform: capitalize;
+    font-size: 18;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
