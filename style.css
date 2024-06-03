@@ -345,7 +345,7 @@ button{
 
 .base-stats-position{
     display: grid;
-    grid-template-columns: 0.8fr 0.15fr 2fr;
+    grid-template-columns: 0.8fr 0.16fr 2fr;
     align-items: center;
 }
 
@@ -374,4 +374,13 @@ button{
     border-radius: 30px;
     height: 4px;
     display: flex;
+}
+
+.uppercase{
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.center{
+    text-align: center;
 }

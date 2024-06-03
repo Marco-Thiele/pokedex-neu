@@ -307,8 +307,8 @@ function renderBaseStatsInfo(i) {
         const stat = stats[j];
         baseStats.innerHTML += `
         <div class="base-stats-position"> 
-        <div>${stat.stat.name}</div>
-        <div>${stat.base_stat}</div>
+        <div class="uppercase">${stat.stat.name}</div>
+        <div class="center">${stat.base_stat}</div>
         <div class="max-progress-bar">
             <div id="progress-Bar${j}" class="progress-Bar">
             </div>
