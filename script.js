@@ -298,6 +298,27 @@ function renderAboutInfo(i) {
 
 
 function renderBaseStatsInfo(i) {
+    let info = document.getElementById('renderInformations');
+    let pokemon = allPokemons[i];
+    let stats = pokemon.stats;
+    info.innerHTML= `<div class="position-info-base" id="infoBaseStats"></div>`
+    let baseStats = document.getElementById('infoBaseStats');
+    for (let j = 0; j < stats.length; j++) {
+        const stat = stats[j];
+        baseStats.innerHTML += `
+        <div class="base-stats-position"> 
+        <div>${stat.stat.name}</div>
+        <div>${stat.base_stat}</div>
+        <div class="max-progress-bar">
+            <div id="progress-Bar${j}" class="progress-Bar">
+            </div>
+        </div>`
+/*         if (stat.base_stat > 100) {
+            stat.base_stat = 100
+        } */
+        let newWidth = stat.base_stat / 180*100;
+        document.getElementById(`progress-Bar${j}`).style.width = newWidth + '%';    
+    }
 
 }
 
