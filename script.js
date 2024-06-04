@@ -36,7 +36,7 @@ async function loadAllPokemons() {
 
 function renderAllPokemons() {
     let container = document.getElementById('allPokemons');
-    container.innerHTM = '';
+    container.innerHTML = '';
     for (let i = 0; i < allPokemons.length - 1; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
