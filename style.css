@@ -401,3 +401,15 @@ button{
     padding-right: 10px;
 }
 
+.close-search{
+    display: flex;
+    justify-content: center;
+}
+
+.close-search img{
+    cursor: pointer;
+}
+
+.d-none{
+    display: none;
+}

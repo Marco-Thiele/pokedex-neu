@@ -351,11 +351,14 @@ function searchPokemon(){
     let allPokemon = document.getElementById('allPokemons');
     search = search.toLowerCase();
     allPokemon.innerHTML = '';
-    allPokemon.innerHTML = `    
-    <div>
-        <img onclick="closeSearch('${allPokemon}')" src="assets/img/x.ico" alt="">
-    </div>
-    <div id="renderSearch"></div>`;
+    document.getElementById('btnLoadMore').classList.add('d-none');
+    allPokemon.innerHTML = `  
+    <div>  
+        <div class="close-search">
+            <img onclick="closeSearch('${allPokemon}')" src="assets/img/x-black.ico" alt="">
+        </div>
+        <div class="allPokemons" id="renderSearch"></div>
+    </div>`;
     let cardPlace = document.getElementById('renderSearch');
     renderFilterPokemon(search, cardPlace); 
 }
@@ -399,6 +402,7 @@ async function renderFilterPokemon(search, cardPlace){
 function closeSearch(allPokemon){
     document.getElementById('search').value = ''
     allPokemon.innerHTML = '';
+    document.getElementById('btnLoadMore').classList.remove('d-none');
     renderAllPokemons();
 }
 
