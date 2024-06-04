@@ -36,6 +36,7 @@ async function loadAllPokemons() {
 
 function renderAllPokemons() {
     let container = document.getElementById('allPokemons');
+    container.innerHTM = '';
     for (let i = 0; i < allPokemons.length - 1; i++) {
         const pokemon = allPokemons[i];
         const typ = pokemon.types[0].type.name;
@@ -68,7 +69,6 @@ function renderPokemonType(i, ID) {
     for (let j = 0; j < allPokemons[i].types.length; j++) {
         const typ = allPokemons[i].types[j];
         PokemonType.innerHTML += `<div class="pokemon-type">${typ.type.name}</div>`;
-
     }
 }
 
@@ -343,4 +343,70 @@ function renderAbilities(pokemon) {
             <div>${abiliti.ability.name}</div> 
     `
     });
+}
+
+
+function searchPokemon(){
+    let search = document.getElementById('search').value;
+    let allPokemon = document.getElementById('allPokemons');
+    search = search.toLowerCase();
+    allPokemon.innerHTML = '';
+    allPokemon.innerHTML = `    
+    <div>
+        <img onclick="closeSearch('${allPokemon}')" src="assets/img/x.ico" alt="">
+    </div>
+    <div id="renderSearch"></div>`;
+    let cardPlace = document.getElementById('renderSearch');
+    renderFilterPokemon(search, cardPlace); 
+}
+
+
+async function renderFilterPokemon(search, cardPlace){
+    for (let i = 1; i < 152; i++) {
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        let responseAsJOIN = await response.json();
+        let name = responseAsJOIN['name'];
+        let pokeimg = responseAsJOIN['sprites']['other']['official-artwork']['front_default'];
+        let pokemon = responseAsJOIN;
+        const typ = pokemon.types[0].type.name;
+        let color = typeColors[typ] || 'darkblue';
+        if (name.toLowerCase().includes(search)) {
+            cardPlace.innerHTML += `
+            <div id="pokemon${i}" onclick="showOverlay(${i})" class="card bg-color-${color}">
+            <div class="class-position-name">
+                <div class="pokemon-name">${pokemon.name}</div>
+                <div class="pokemon-id">#${pokemon.id}</div>
+            </div>
+            <div class="position-card-contant">
+                <div class="position-type">
+                    <div id="PokemonType${i}" class="pokemon-type-position"></div>   
+                </div>
+                <div class="imges">
+                    <img class="pokemon-img" src="${pokeimg}">
+                    <img class="pokeball-img" src="assets/img/pokeball.png">
+                </div>
+            </div>        
+            </div>
+            `; 
+            renderFilterPokemonType(i, 'PokemonType' + i, pokemon);
+        }
+    }
+    
+}
+
+
+function closeSearch(allPokemon){
+    document.getElementById('search').value = ''
+    allPokemon.innerHTML = '';
+    renderAllPokemons();
+}
+
+
+function renderFilterPokemonType(i, ID, pokemon) {
+    let PokemonType = document.getElementById(ID)
+    for (let j = 0; j < pokemon.types.length; j++) {
+        const typ = pokemon.types[j];
+        PokemonType.innerHTML += `<div class="pokemon-type">${typ.type.name}</div>`;
+    }
 }
